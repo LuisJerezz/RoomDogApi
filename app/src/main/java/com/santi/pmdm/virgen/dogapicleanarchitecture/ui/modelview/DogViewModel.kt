@@ -97,13 +97,20 @@ class DogViewModel @Inject constructor(
 
     /*
     Este caso de uso, es para eliminar los datos de la base de datos.
+
+    Para que fuera óptimo, se debería borrar en la BBDD y al mismo tiempo en memoria.
+    Después en vez de llamar a list(), sería actualizar un MutableListData<List<Dog>>
+    de esa forma, se actualizaría el adptador y no habría que volver a recuperar los datos
+    de la BBDD.
      */
+
+
     fun delete() {
         viewModelScope.launch {
             withContext(Dispatchers.IO){
                 userCaseDeleteDatabase() //si invocamos para borrar la base de datos.
             }
-            list() //Vuelvo a cargar los datos desde Dogs.
+            list() //Vuelvo a cargar los datos desde Dogs. Lo hacemos así, por sencillez, pero no es óptimo.
         }
     }
 

@@ -10,7 +10,7 @@ Funciones de extensión, para convertir objetos de Tipo DogEntity/Pair a Dog
 
 
 //Necesitamos mapear un DogEntity a DogModel BBDD  --> IU
-fun DogEntity.toDogEntity(): Dog {
+fun DogEntity.toDog(): Dog {
     return Dog(breed = this.breed, image = this.image)
 }
 

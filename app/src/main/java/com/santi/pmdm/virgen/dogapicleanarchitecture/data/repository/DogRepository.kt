@@ -4,7 +4,6 @@ import com.santi.pmdm.virgen.dogapicleanarchitecture.data.datasource.database.da
 import com.santi.pmdm.virgen.dogapicleanarchitecture.data.datasource.database.entities.DogEntity
 import com.santi.pmdm.virgen.dogapicleanarchitecture.data.datasource.mem.service.DogService
 import com.santi.pmdm.virgen.dogapicleanarchitecture.domain.mapper.toDog
-import com.santi.pmdm.virgen.dogapicleanarchitecture.domain.mapper.toDogEntity
 import com.santi.pmdm.virgen.dogapicleanarchitecture.domain.models.Dog
 import com.santi.pmdm.virgen.dogapicleanarchitecture.domain.models.Repository
 import com.santi.pmdm.virgen.dogapicleanarchitecture.domain.repository.DogRepositoryInterface
@@ -34,14 +33,6 @@ class DogRepository @Inject constructor(
 
         Repository.dogs = dataSource.map { it.toDog() }
         return Repository.dogs
-
-        /*
-        dataSource.forEach{ dog->
-            mutableDogs.add(Dog(dog.first, dog.second))
-        }
-        Repository.dogs = mutableDogs //AQUÍ CARGO LOS DATOS EN MEMORIA.
-        return Repository.dogs
-         */
     }
 
     override fun getBreedDogs(breed: String): List<Dog> {
@@ -49,26 +40,18 @@ class DogRepository @Inject constructor(
 
         Repository.dogs = dataSource.map { it.toDog() }
         return Repository.dogs
-        /*
-        dataSource.forEach{ dog->
-            mutableDogs.add(Dog(dog.first, dog.second))
-
-        }
-        Repository.dogs = mutableDogs //AQUÍ CARGO LOS DATOS EN MEMORIA.
-        return Repository.dogs
-         */
     }
 
     override suspend fun getDogsEntity(): List<Dog> {
         val listEntity : List<DogEntity> = dogDao.getAll()  //aquí tengo todos los datos Dog
-        Repository.dogs = listEntity.map { it.toDogEntity()}  //convertimos a Dog (dominio) y lo cargamos en memoria
+        Repository.dogs = listEntity.map { it.toDog()}  //convertimos a Dog (dominio) y lo cargamos en memoria
        return Repository.dogs
 
     }
 
     override suspend fun getBreedDogsEntity(breed: String): List<Dog> {
         val listEntity : List<DogEntity> = dogDao.getDogsByBreed(breed)  //aquí tengo todos los datos Entity filtrados
-        Repository.dogs = listEntity.map { it.toDogEntity()}  //convertimos a DogModel (dominio) y lo cargamos en memoria
+        Repository.dogs = listEntity.map { it.toDog()}  //convertimos a DogModel (dominio) y lo cargamos en memoria
         return Repository.dogs
 
     }
