@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "C:\\Users\\LUIS\\.gradle\\daemon\\7.3.3\\com.santi.pmdm.virgen.dogapicleanarchitecture.app-mergeDebugResources-42:\\layout\\item_dog.xml",
+        "source": "C:\\Users\\LUIS\\.gradle\\daemon\\7.3.3\\com.santi.pmdm.virgen.dogapicleanarchitecture.app-main-45:\\layout\\item_dog.xml"
+    },
+    {
+        "merged": "com.santi.pmdm.virgen.dogapicleanarchitecture.app-mergeDebugResources-42:/layout/item_dog.xml",
+        "source": "com.santi.pmdm.virgen.dogapicleanarchitecture.app-main-45:/layout/item_dog.xml"
+    },
+    {
+        "merged": "C:\\Users\\LUIS\\.gradle\\daemon\\7.3.3\\com.santi.pmdm.virgen.dogapicleanarchitecture.app-mergeDebugResources-42:\\layout\\activity_main.xml",
+        "source": "C:\\Users\\LUIS\\.gradle\\daemon\\7.3.3\\com.santi.pmdm.virgen.dogapicleanarchitecture.app-main-45:\\layout\\activity_main.xml"
+    }
+]

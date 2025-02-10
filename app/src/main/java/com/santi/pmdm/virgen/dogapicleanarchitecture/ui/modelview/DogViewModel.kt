@@ -43,30 +43,23 @@ cuando se llame al método get del provider. De esta forma, aseguramos que se cu
  */
 @HiltViewModel
 class DogViewModel @Inject constructor(
-    private val useCaseList : GetDogsUseCase,
+    private val useCaseList: GetDogsUseCase,
     private val getDogsBreedUseCase: GetDogsBreedUseCase,
-    private val userCaseDeleteDatabase : DeleteDogsFromDataBaseUseCase
+    private val userCaseDeleteDatabase: DeleteDogsFromDataBaseUseCase
+) : ViewModel() {
 
-): ViewModel() {
-
-
-    var dogListLiveData = MutableLiveData<List<Dog>>() //repositorio observable
+    var dogListLiveData = MutableLiveData<List<Dog>?>() //repositorio observable
     var progressBarLiveData = MutableLiveData<Boolean> () //progressbar observable
     var breed = MutableLiveData<String>() //para el campo search con la raza.
 
     fun list() {
         viewModelScope.launch {
-            progressBarLiveData.value = true //notifico
-            delay(500)
-           // useCaseList = GetDogsUseCase()  //Ya no me hace falta, porque se crea por Hilt.
-            var data : List<Dog> ?
-            withContext(Dispatchers.IO){
-                data  = useCaseList()  //aquí se invoca y se obtienen los datos.
-            }
-           // var data : List<Dog> ? = useCaseList()  //aquí se invoca y se obtienen los datos.
+            progressBarLiveData.value = true // Mostrar progress bar
+            delay(500) // Simular una carga
+            val data = useCaseList() // Obtener todos los perros usando invoke()
             data.let {
-                dogListLiveData.value = it  //notifico
-                progressBarLiveData.value = false  //notifico
+                dogListLiveData.value = it // Actualizar LiveData
+                progressBarLiveData.value = false // Ocultar progress bar
             }
         }
     }
@@ -105,13 +98,25 @@ class DogViewModel @Inject constructor(
      */
 
 
-    fun delete() {
+    fun delete(dog: Dog) {
         viewModelScope.launch {
-            withContext(Dispatchers.IO){
-                userCaseDeleteDatabase() //si invocamos para borrar la base de datos.
+            withContext(Dispatchers.IO) {
+                userCaseDeleteDatabase.deleteDog(dog) // Eliminar solo el perro
             }
-            list() //Vuelvo a cargar los datos desde Dogs. Lo hacemos así, por sencillez, pero no es óptimo.
+
+            // Actualizamos la lista en el LiveData para reflejar el cambio
+            val updatedList = dogListLiveData.value?.toMutableList()
+            updatedList?.remove(dog)
+            dogListLiveData.postValue(updatedList) // Notificar a la UI con la lista actualizada
+
+            // Verificamos si la lista está vacía después de eliminar el perro
+            if (updatedList.isNullOrEmpty()) {
+                list() // Cargar todos los perros nuevamente
+            }
         }
     }
+
+
+
 
 }

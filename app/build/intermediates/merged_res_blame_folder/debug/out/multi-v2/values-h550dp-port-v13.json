@@ -1,0 +1,19 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.santi.pmdm.virgen.dogapicleanarchitecture.app-mergeDebugResources-41:/values-h550dp-port-v13/values-h550dp-port-v13.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\LUIS\\.gradle\\caches\\transforms-3\\7c875795304d54c2b2467a7ffe9cf7ec\\transformed\\material-1.11.0\\res\\values-h550dp-port-v13\\values-h550dp-port-v13.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "64",
+                        "endOffsets": "115"
+                    }
+                }
+            ]
+        }
+    ]
+}

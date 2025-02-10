@@ -1,0 +1,28 @@
+R_DEF: Internal format may change without notice
+local
+color black
+color purple_200
+color purple_500
+color purple_700
+color teal_200
+color teal_700
+color white
+drawable baseline_delete_24
+drawable ic_launcher_background
+drawable ic_launcher_foreground
+drawable v_a_add_24
+id btnDelete
+id iv_imagen
+id my_layout_ppal
+id my_recycler_ppal
+id my_search
+id progress_bar
+id textView
+layout activity_main
+layout item_dog
+mipmap ic_launcher
+mipmap ic_launcher_round
+string app_name
+style Theme.DogApiCleanArchitecture
+xml backup_rules
+xml data_extraction_rules

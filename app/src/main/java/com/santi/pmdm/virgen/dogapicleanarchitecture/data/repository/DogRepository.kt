@@ -29,9 +29,8 @@ class DogRepository @Inject constructor(
     de objetos que necesita el modelo.
      */
     override fun getDogs(): List<Dog> {
-        val dataSource = service.getDogs()
-
-        Repository.dogs = dataSource.map { it.toDog() }
+        val dataSource = service.getDogs() // Obtener perros de la fuente de datos en memoria
+        Repository.dogs = dataSource.map { it.toDog() } // Convertir a Dog y cargar en memoria
         return Repository.dogs
     }
 
@@ -43,11 +42,11 @@ class DogRepository @Inject constructor(
     }
 
     override suspend fun getDogsEntity(): List<Dog> {
-        val listEntity : List<DogEntity> = dogDao.getAll()  //aquí tengo todos los datos Dog
-        Repository.dogs = listEntity.map { it.toDog()}  //convertimos a Dog (dominio) y lo cargamos en memoria
-       return Repository.dogs
-
+        val listEntity: List<DogEntity> = dogDao.getAll() // Obtener todos los perros de la base de datos
+        Repository.dogs = listEntity.map { it.toDog() } // Convertir a Dog y cargar en memoria
+        return Repository.dogs
     }
+
 
     override suspend fun getBreedDogsEntity(breed: String): List<Dog> {
         val listEntity : List<DogEntity> = dogDao.getDogsByBreed(breed)  //aquí tengo todos los datos Entity filtrados
